@@ -1,2 +1,4 @@
 nimcache/*
 *.sublime-project
+*.sublime-workspace
+*.dll
