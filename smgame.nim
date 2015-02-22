@@ -1,7 +1,10 @@
-import sdl2
+import sdl2, sdl2.ttf
 import engine.scenemanager
 
-discard init(INIT_EVERYTHING)
+init(INIT_EVERYTHING)
+
+#init ttf usage
+ttfInit()
 
 # dimensions
 var
@@ -33,7 +36,7 @@ render = createRenderer(window, -1,
     Renderer_Accelerated or Renderer_TargetTexture)
 
 # scene manager
-var sManager: SceneManager = SceneManager()
+var sManager = SceneManager()
 
 # setup scenes
 sManager.init()
@@ -62,8 +65,16 @@ while game_open == true:
     # draw to screen
     sManager.draw(render)
 
+    # display
     render.present()
 
-# clean up 
+#clean up scenes
+sManager.clean()
+
+# clean up window/render
 destroy render 
 destroy window 
+
+#quit sdl/libraries
+ttf.ttfQuit()
+sdl2.quit()

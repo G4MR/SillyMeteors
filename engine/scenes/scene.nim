@@ -22,3 +22,7 @@ method update*(self: Scene; dt: float) =
 # draw to the renderer
 method draw*(self: Scene; render: RendererPtr) =
     discard 
+
+# draw to the renderer
+method clean*(self: Scene) =
+    discard 

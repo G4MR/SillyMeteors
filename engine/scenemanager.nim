@@ -26,6 +26,11 @@ method events*(self: SceneManager; e: Event) =
         for s in self.scenes:
             s.events(e)
 
+method clean*(self: SceneManager) =
+    if self.scenes.len() > 0:
+        for s in self.scenes:
+            s.clean()
+
 method init*(self: SceneManager) =
     self.scenes = @[]
     var levelScene = LevelScene()

@@ -1,22 +1,26 @@
-type EmptyScene = ref object of RootObj
+type MyObj = ref object of RootObj
 
-method load(self: ref EmptyScene) =
-    discard
+method output(self: MyObj) =
+    echo "Output something"
 
-type MyScene1 = ref object of EmptyScene 
+type ChildObj = ref object of MyObj
+    customvar: string
 
-method load(self: ref MyScene1) =
-    echo "My scene"
+method newOutput(self: ChildObj) =
+    self.customvar = "Child output custom var too"
+    
+method output(self: ChildObj) =
+    echo "Child Output something too"
+    self.newOutput()
+    echo self.customvar
 
-type MyScene2 = ref object of EmptyScene 
+var o = MyObj()
+var ochild = ChildObj()
 
-method load(self: ref MyScene2) =
-    echo "My scene"
+var objs : seq[MyObj] = @[]
 
-var myscenes: seq[ref EmptyScene] = @[]
+objs.add(o)
+objs.add(ochild)
 
-var scene1 = new MyScene1
-var scene2 = new MyScene2 
-
-myscenes.add(scene1)
-myscenes.add(scene2)
+for o in objs:
+    o.output()

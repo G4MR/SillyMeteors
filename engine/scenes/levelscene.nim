@@ -25,3 +25,7 @@ method update*(self: LevelScene; dt: float) =
 # draw to the renderer
 method draw*(self: LevelScene, render: RendererPtr) =
     discard sdl2.copy(render, self.myimage, addr(self.srect), addr(self.drect))
+
+# draw to the renderer
+method clean*(self: LevelScene) =
+    discard 
