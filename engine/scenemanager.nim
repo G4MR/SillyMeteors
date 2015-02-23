@@ -36,4 +36,4 @@ method init*(self: SceneManager) =
     var levelScene = LevelScene()
     var myScene = MyScene()
     self.scenes.add(levelScene)
-    self.scenes.add(myScene)
+    #self.scenes.add(myScene)
