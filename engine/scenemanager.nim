@@ -34,6 +34,6 @@ method clean*(self: SceneManager) =
 method init*(self: SceneManager) =
     self.scenes = @[]
     var levelScene = LevelScene()
-    var myScene = MyScene()
+    #var myScene = MyScene()
     self.scenes.add(levelScene)
     #self.scenes.add(myScene)

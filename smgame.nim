@@ -1,5 +1,6 @@
 import sdl2, sdl2.ttf
 import engine.scenemanager
+import engine.font
 
 init(INIT_EVERYTHING)
 
@@ -44,6 +45,10 @@ sManager.init()
 # let the scene manager load up variables outside of the game loop
 sManager.load(render)
 
+var myfont : FontObj = FontObj()
+var myfont_color : sdl2.Color = (uint8(0), uint8(0), uint8(0), uint8(0))
+myfont.create(render, "Display This", "assets/fonts/minecraftia.ttf", 60, myfont_color)
+
 # game loop
 while game_open == true:
 
@@ -64,6 +69,7 @@ while game_open == true:
 
     # draw to screen
     sManager.draw(render)
+    myfont.draw(render, 200, 200)
 
     # display
     render.present()
