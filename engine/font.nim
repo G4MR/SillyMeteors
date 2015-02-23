@@ -1,16 +1,22 @@
 import sdl2, sdl2.ttf
+import helpers
 
 type FontObj* = ref object of RootObj
     font*: ttf.FontPtr
     texture*: TexturePtr
-    width*: cint
-    height*: cint
+    width*: int
+    height*: int
     text*: cstring
     pos*: Rect
 
 #NOTE: sizeText needs to be discarded, might want to do a pull request
 method size*(self: FontObj) =
-    discard ttf.sizeText(self.font, self.text, addr(self.width), addr(self.height))
+    var width: cint
+    var height: cint
+    discard ttf.sizeText(self.font, self.text, addr(width), addr(height))
+
+    self.width = width
+    self.height = height
 
 method create*(self: FontObj, render: RendererPtr, 
     text: cstring, file: cstring, f_size: int, color: sdl2.Color) =
@@ -32,8 +38,8 @@ method create*(self: FontObj, render: RendererPtr,
 
 method draw*(self: FontOBj; render: RendererPtr, x_pos: int, y_pos: int) =
     #font/draw position
-    var src_pos : sdl2.Rect = (cint(0), cint(0), cint(self.width), cint(self.height))
-    var draw_pos : sdl2.Rect = (cint(x_pos), cint(y_pos), cint(self.width), cint(self.height))
+    var src_pos : sdl2.Rect = helpers.toRect((0, 0, self.width, self.height))
+    var draw_pos : sdl2.Rect = helpers.toRect((x_pos, y_pos, self.width, self.height))
 
     #draw font texture to screen
     sdl2.copy(render, self.texture, addr(src_pos), addr(draw_pos))
