@@ -60,7 +60,7 @@ method update*(self: LevelScene; dt: float) =
     var x = self.image.fdst.x
     var y = self.image.fdst.y
 
-    let angle = (90 * dt) * math.PI/180
+    let angle = (45 * dt) * math.PI/180
 
     let rotate_x = math.cos(angle) * (x - x_origin) - math.sin(angle) * (y - y_origin) + x_origin;
     let rotate_y = math.sin(angle) * (x - x_origin) + math.cos(angle) * (y - y_origin) + y_origin;
