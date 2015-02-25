@@ -92,6 +92,7 @@ while game_open == true:
 
 #clean up scenes
 sManager.clean()
+myfont.clean()
 
 # clean up window/render
 destroy render 
