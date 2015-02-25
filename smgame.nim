@@ -34,8 +34,14 @@ window = createWindow(window_name,
     cint(window_height),
     SDL_WINDOW_SHOWN)
 
+if isNil(window):
+    quit("Couldn't create window", QuitFailure)
+
 render = createRenderer(window, -1,
     Renderer_Accelerated or Renderer_TargetTexture)
+
+if isNil(render):
+    quit("Couldn't create renderer", QuitFailure)
 
 # scene manager
 var sManager = SceneManager()

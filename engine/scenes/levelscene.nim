@@ -50,9 +50,9 @@ method update*(self: LevelScene; dt: float) =
 
 # draw to the renderer
 method draw*(self: LevelScene, render: RendererPtr) =
-    
+
     self.level_font.draw(render, 800, 300)
-    discard sdl2.copy(render, self.myimage, addr(self.srect), addr(self.drect))
+    sdl2.copy(render, self.myimage, addr(self.srect), addr(self.drect))
 
 # draw to the renderer
 method clean*(self: LevelScene) =
