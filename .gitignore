@@ -1,4 +1,6 @@
 nimcache/*
+newfile.nim
+test.nim
 *.sublime-project
 *.sublime-workspace
 *.dll
