@@ -24,21 +24,22 @@ method setDestination*(self: Sprite; dst: tuple[x, y, w, h: int]) =
     
     #set source position
     self.dst = helpers.toRect(dst)
-    self.setfDestination(float(dst.x), float(dst.y))
 
 #set destination dimensions (where we want to print)
 method setDestination*(self: Sprite; dst: tuple[x, y: int]) =
     
     #set source position
     self.dst = helpers.toRect((dst.x, dst.y, int(self.src.w), int(self.src.h)))
-    self.setfDestination(float(dst.x), float(dst.y))
+
+#alias
+method setDestination*(self: Sprite; x, y: float) =
+    self.setDestination((int(x), int(y)))
 
 #set source dimensions (used for cropping if necessary)
 method setSource*(self: Sprite; src: tuple[x, y, w, h: int]) =
 
     #set source position
     self.src = helpers.toRect(src)
-    self.setDestination((0, 0, int(self.src.w), int(self.src.h)))
 
 method load*(self: Sprite, file: cstring, render: RendererPtr) =
     
@@ -55,6 +56,8 @@ method create*(self: Sprite; file: cstring, render: RendererPtr, src: tuple[x, y
     
     #set dimensions
     self.setSource(src)
+    self.setDestination((0, 0, int(self.src.w), int(self.src.h)))
+    self.setfDestination(float(self.dst.x), float(self.dst.y))
 
     #load image
     self.load(file, render)
@@ -64,6 +67,7 @@ method create*(self: Sprite; file: cstring, render: RendererPtr, src: tuple[x, y
     #set dimensions
     self.setSource(src)
     self.setDestination(dst)
+    self.setfDestination(float(self.dst.x), float(self.dst.y))
 
     #load image
     self.load(file, render)
@@ -73,6 +77,7 @@ method create*(self: Sprite; file: cstring, render: RendererPtr, src: tuple[x, y
     #set dimensions
     self.setSource(src)
     self.setDestination(dst)
+    self.setfDestination(float(self.dst.x), float(self.dst.y))
 
     #load image
     self.load(file, render)

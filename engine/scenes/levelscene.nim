@@ -66,9 +66,7 @@ method update*(self: LevelScene; dt: float) =
     let rotate_y = math.sin(angle) * (x - x_origin) + math.cos(angle) * (y - y_origin) + y_origin;
 
     self.image.setfDestination(rotate_x, rotate_y)
-
-    self.image.dst.x = cint(rotate_x)
-    self.image.dst.y = cint(rotate_y)
+    self.image.setDestination(x, y)
 
     echo (dt, ",", x, ",", y)
 
