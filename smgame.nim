@@ -1,4 +1,4 @@
-import sdl2, sdl2.ttf
+import sdl2, sdl2.ttf, sdl2.gfx
 import engine.scenemanager
 import engine.font
 import engine.helpers
@@ -56,6 +56,10 @@ var myfont : FontObj = FontObj()
 var myfont_color : sdl2.Color = helpers.toColor(0, 0, 0, 0)
 myfont.create(render, "Display This", "assets/fonts/minecraftia.ttf", 60, myfont_color)
 
+var fps: FpsManager
+fps.init()
+fps.setFramerate(60)
+
 # game loop
 while game_open == true:
 
@@ -67,12 +71,14 @@ while game_open == true:
         #run custom events
         sManager.events(event)
 
+    let dt = fps.getFramerate() / 1000
+
     #update 
-    sManager.update(1.0)
+    sManager.update(dt)
 
     # update screen
-    render.setDrawColor(255, 0, 0, 255)
     render.clear()
+    render.setDrawColor(255, 0, 0, 255)
 
     # draw to screen
     sManager.draw(render)
@@ -80,6 +86,7 @@ while game_open == true:
 
     # display
     render.present()
+    fps.delay()
 
 #clean up scenes
 sManager.clean()
