@@ -52,10 +52,12 @@ sManager.init()
 # let the scene manager load up variables outside of the game loop
 sManager.load(render)
 
+#test font, removed soon
 var myfont : FontObj = FontObj()
 var myfont_color : sdl2.Color = helpers.toColor(0, 0, 0, 0)
 myfont.create(render, "Display This", "assets/fonts/minecraftia.ttf", 60, myfont_color)
 
+#fps manager
 var fps: FpsManager
 fps.init()
 fps.setFramerate(60)
