@@ -10,14 +10,28 @@ type LevelScene* = ref object of Scene
     level_font*: FontObj
     changed*: bool
     stop: bool
-    #level_text_font*: FontObj
+    level_text_font*: FontObj
+    level: int
+
+#set level
+method setLevel*(self: LevelScene, level: int) = self.level = level
+
+#get level
+method getLevel*(self: LevelScene): int = self.level
 
 #my scene methods
 method load*(self: LevelScene; render: RendererPtr) =
-    #self.level_font = ttf.openFont("assets/fonts/minecraftia.ttf", 60)
-    #self.level_text_font = ttf.openFont("assets/fonts/minecraftia.ttf", 40)
+    
+    #set start level
+    self.setLevel(1)
+
+    #setup fonts
     self.level_font = FontObj()
     self.level_font.create(render, "Level Scene", "assets/fonts/minecraftia.ttf", 60, helpers.toColor(0,0,0,0))
+    
+    self.level_text_font = FontObj()
+    self.level_text_font.create(render, "Level", "assets/fonts/minecraftia.ttf", 60, helpers.toColor(0,0,0,0))
+    
     self.myimage = image.loadTexture(render, "assets/mb1.png")
     self.drect = helpers.toRect(300, 600, 101, 84)
     self.srect = helpers.toRect(0, 0, 101, 84)
@@ -42,5 +56,6 @@ method draw*(self: LevelScene, render: RendererPtr) =
 
 # draw to the renderer
 method clean*(self: LevelScene) =
-    #self.level_font.clean()
+    self.level_font.clean()
+    self.level_text_font.clean()
     discard 
