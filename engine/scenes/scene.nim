@@ -1,11 +1,12 @@
 import sdl2
+import "../smcontainer"
 
 type Scene* = ref object of RootObj
 
 # default load method used for loading custom scene variables/assets
 # before the game loop happens so we won't be causing unnecessary
 # memory usage
-method load*(self: Scene; render: RendererPtr) =
+method load*(self: Scene; render: RendererPtr, smc: SMContainer) =
     discard
 
 # each scene will have its own events that they can run 

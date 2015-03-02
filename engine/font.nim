@@ -84,7 +84,8 @@ method draw*(self: FontObj; render: RendererPtr, x_pos: int, y_pos: int) =
     #draw font texture to screen
     sdl2.copy(render, self.texture, addr(src_pos), addr(draw_pos))
 
-    #clean up
+    #clean up so there won't be (m)any? lol memory leaks because sometimes
+    #we might want to change the text on the fly
     self.destroy()
 
 method clean*(self: FontObj) =
