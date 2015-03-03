@@ -1,24 +1,25 @@
 import sdl2, sdl2.ttf, sdl2.gfx
-import engine.scenemanager
+
+import defaults
 import engine.font
 import engine.helpers
+import engine.scenemanager
+import engine.window_properties
 
 init(INIT_EVERYTHING)
 
 #init ttf usage
 ttfInit()
 
-# dimensions
-var
-    target_width: int = 1280 # sprites made for this resolution width
-    target_height: int = 720 # sprites made for this resolution height
-    window_width: int = 1280 # actual window width
-    window_height: int = 720 # actual window height
+# Window Properties
+var win_properties = WindowProperties()
+win_properties.init("SillyMeteors", 1280, 720, 1280, 720)
 
 # game details
-var
-    game_open: bool = true
-    window_name: string = "SillyMeteors"
+var gdefaults = Defaults()
+
+gdefaults.level = 1
+gdefaults.running = true
 
 # sdl defaults
 var
@@ -27,11 +28,11 @@ var
     render: RendererPtr
 
 # setup window & renderer 
-window = createWindow(window_name,
+window = createWindow(win_properties.name,
     SDL_WINDOWPOS_UNDEFINED,
     SDL_WINDOWPOS_UNDEFINED,
-    cint(window_width),
-    cint(window_height),
+    win_properties.width,
+    win_properties.height,
     SDL_WINDOW_SHOWN)
 
 if isNil(window):
@@ -47,7 +48,7 @@ if isNil(render):
 var sManager = SceneManager()
 
 # setup scenes
-sManager.init()
+sManager.init(win_properties, gdefaults)
 
 # let the scene manager load up variables outside of the game loop
 sManager.load(render)
@@ -63,12 +64,12 @@ fps.init()
 fps.setFramerate(60)
 
 # game loop
-while game_open == true:
+while gdefaults.running == true:
 
     # poll events 
     while pollEvent(event):
         if event.kind == QuitEvent:
-            game_open = false
+            gdefaults.running = false
 
         #run custom events
         sManager.events(event)

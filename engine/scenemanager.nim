@@ -1,10 +1,14 @@
 import sdl2
 import tables
+
+import "../defaults"
+
 import scenes.scene 
 import scenes.myscene 
 import scenes.levelscene
 
 import smcontainer
+import window_properties
 
 type SceneManager* = ref object of RootObj
     scenes*: Table[string, Scene]
@@ -38,12 +42,15 @@ method clean*(self: SceneManager) =
         for s, sObj in self.scenes:
             sObj.clean()
 
-method init*(self: SceneManager) =
+method init*(self: SceneManager; wproperties: WindowProperties,
+    default: Defaults) =
     
     self.container = SMContainer()
-    self.container.select("LevelScene")
 
     # setup defaults
     self.scenes = initTable[string, Scene]()
     self.scenes.add("LevelScene", LevelScene())
     self.scenes.add("MyScene", MyScene())
+
+    self.container.init(wproperties, default)
+    self.container.select("LevelScene")

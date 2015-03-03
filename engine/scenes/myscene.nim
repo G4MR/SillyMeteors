@@ -19,6 +19,7 @@ method load*(self: MyScene; render: RendererPtr, smc: SMContainer) =    #set sce
 # then we could
 method events*(self: MyScene; e: Event) =
     if e.kind == MouseButtonDown:
+        self.smc.defaults.level += 1
         self.smc.select("LevelScene")
     discard 
 

@@ -7,6 +7,7 @@ import "../font"
 import "../sprite"
 import "../helpers"
 import "../smcontainer"
+import "../window_properties" #required if I want to use WindowProperties methods
 
 type LevelScene* = ref object of Scene
     smc*: SMContainer
@@ -34,8 +35,10 @@ method load*(self: LevelScene; render: RendererPtr, smc: SMContainer) =
     #set scene manager to access scene changer
     self.smc = smc
 
+    echo "Window Size is: ", self.smc.window.getWidth(), " x ", self.smc.window.getHeight()
+
     #set start level
-    self.setLevel(1)
+    self.setLevel(self.smc.defaults.level)
 
     #setup fonts
     self.level_font = FontObj()
@@ -56,8 +59,9 @@ method load*(self: LevelScene; render: RendererPtr, smc: SMContainer) =
 # then we could
 method events*(self: LevelScene; e: Event) =
     if e.kind == MouseButtonDown:
-        self.changed = true
-        self.smc.select("MyScene")
+        self.smc.defaults.running = false
+        #self.changed = true
+        #self.smc.select("MyScene")
     discard 
 
 # this method allows us to update the position on the screen
@@ -70,7 +74,7 @@ method update*(self: LevelScene; dt: float) =
 
     self.count += dt
 
-    var text = "Current Level" & " " & intToStr(self.getLevel())
+    var text = "Current Level " & intToStr(self.getLevel())
     self.level_font.setText(text)
 
     let x_origin = 640.0
